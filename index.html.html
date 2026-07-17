@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ตารางเตรียมสารน้ำ Dextrose ความเข้มข้นพิเศษ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F7F6;
+  --card:#FFFFFF;
+  --ink:#16302B;
+  --muted:#5B7370;
+  --teal:#0E756A;
+  --teal-dark:#0A5A52;
+  --d50:#B45309;       /* 50% Dextrose = สีน้ำตาลอำพัน (น้ำตาล/น้ำเชื่อม) */
+  --d50-bg:#FDF3E3;
+  --base:#2C5FA8;      /* สารน้ำเดิมในถุง = สีฟ้า */
+  --base-bg:#EDF3FB;
+  --line:#D9E5E2;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Sarabun',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.55;
+  padding:20px 14px 60px;
+}
+.wrap{max-width:880px;margin:0 auto}
+h1,h2,h3{font-family:'Anuphan',sans-serif}
+.eyebrow{
+  display:inline-block;font-size:12px;font-weight:600;letter-spacing:.08em;
+  color:var(--teal);background:#E2EFED;border-radius:999px;padding:4px 12px;margin-bottom:10px;
+}
+h1{font-size:clamp(22px,4.5vw,30px);font-weight:700;line-height:1.3;margin-bottom:6px}
+.sub{color:var(--muted);font-size:14.5px;margin-bottom:22px}
+
+/* คำอธิบายสี */
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px;font-size:13.5px}
+.legend span{display:flex;align-items:center;gap:7px;font-weight:500}
+.dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.dot.d50{background:var(--d50)}
+.dot.base{background:var(--base)}
+
+/* แท็บเลือกขนาดถุง */
+.tabs{display:flex;gap:8px;margin-bottom:16px}
+.tab{
+  font-family:'Anuphan',sans-serif;font-size:16px;font-weight:600;
+  padding:10px 22px;border-radius:12px;border:1.5px solid var(--line);
+  background:var(--card);color:var(--muted);cursor:pointer;transition:.15s;
+}
+.tab:hover{border-color:var(--teal)}
+.tab.active{background:var(--teal);border-color:var(--teal);color:#fff}
+.tab:focus-visible{outline:2px solid var(--teal-dark);outline-offset:2px}
+
+/* ตาราง */
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:26px}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+thead th{
+  font-family:'Anuphan',sans-serif;font-weight:600;font-size:13.5px;
+  background:var(--teal);color:#fff;padding:10px 12px;text-align:center;line-height:1.35;
+}
+thead th small{display:block;font-family:'Sarabun',sans-serif;font-weight:400;font-size:11.5px;opacity:.85;margin-top:2px}
+thead th:first-child{text-align:left;background:var(--teal-dark)}
+tbody th{
+  font-family:'Anuphan',sans-serif;font-weight:700;font-size:16px;color:var(--teal-dark);
+  text-align:left;padding:10px 14px;background:#F0F6F5;white-space:nowrap;
+}
+tbody td{padding:9px 12px;text-align:center;border-top:1px solid var(--line);vertical-align:middle}
+tbody th{border-top:1px solid var(--line)}
+tbody tr:hover td, tbody tr:hover th{background:#FAFDF3}
+td.na{color:#B7C6C3;font-size:13px}
+
+/* เซลล์สูตร: แถบสัดส่วน + ตัวเลข */
+.mix{display:flex;flex-direction:column;gap:5px;min-width:120px}
+.nums{display:flex;justify-content:center;gap:10px;font-weight:600;font-size:13.5px}
+.nums .v50{color:var(--d50)}
+.nums .vb{color:var(--base)}
+.bar{display:flex;height:6px;border-radius:99px;overflow:hidden;background:var(--base-bg)}
+.bar i{display:block;height:100%}
+.bar .f50{background:var(--d50)}
+.bar .fb{background:var(--base)}
+
+/* วิธีใช้ */
+.howto{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:26px}
+.howto h2{font-size:18px;margin-bottom:12px;color:var(--teal-dark)}
+.steps{list-style:none;counter-reset:s}
+.steps li{
+  counter-increment:s;position:relative;padding-left:40px;margin-bottom:12px;font-size:14.5px;
+}
+.steps li::before{
+  content:counter(s);position:absolute;left:0;top:1px;
+  width:26px;height:26px;border-radius:50%;background:var(--teal);color:#fff;
+  font-family:'Anuphan',sans-serif;font-weight:700;font-size:14px;
+  display:flex;align-items:center;justify-content:center;
+}
+.example{
+  background:#F0F6F5;border-left:4px solid var(--teal);border-radius:0 10px 10px 0;
+  padding:12px 16px;font-size:14px;margin-top:6px;
+}
+.example b{color:var(--teal-dark)}
+mark.d50{background:var(--d50-bg);color:var(--d50);font-weight:700;padding:1px 6px;border-radius:6px}
+mark.base{background:var(--base-bg);color:var(--base);font-weight:700;padding:1px 6px;border-radius:6px}
+
+/* เครื่องคิดเลข */
+.calc{background:linear-gradient(135deg,#0A5A52,#0E756A);border-radius:16px;padding:22px;color:#fff}
+.calc h2{font-size:18px;margin-bottom:4px}
+.calc p.note{font-size:13px;opacity:.85;margin-bottom:16px}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.field label{display:block;font-size:12.5px;font-weight:600;margin-bottom:5px;opacity:.9}
+.field select,.field input{
+  width:100%;padding:9px 10px;border-radius:10px;border:none;font-family:'Sarabun',sans-serif;
+  font-size:14.5px;font-weight:500;color:var(--ink);
+}
+.field input:focus,.field select:focus{outline:2px solid #FBBF6E}
+.result{
+  background:rgba(255,255,255,.12);border:1px dashed rgba(255,255,255,.4);
+  border-radius:12px;padding:14px 16px;font-size:14.5px;min-height:52px;
+}
+.result b{font-size:17px}
+.result .warn{color:#FFD9A0}
+footer{margin-top:26px;font-size:12px;color:var(--muted);text-align:center}
+@media (max-width:520px){
+  .tab{flex:1;text-align:center;padding:10px 8px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <span class="eyebrow">คู่มือเภสัชกรรม · IV Admixture</span>
+  <h1>ตารางเตรียมสารน้ำที่มีความเข้มข้น Dextrose นอกบัญชีโรงพยาบาล</h1>
+  <p class="sub">เตรียมโดยผสม <b>50% Dextrose</b> เข้ากับสารน้ำเดิมในถุง (0%, 5% หรือ 10% Dextrose) — ตัวเลขในตารางคือปริมาตร (mL) ของแต่ละส่วน</p>
+
+  <div class="legend">
+    <span><i class="dot d50"></i> 50% Dextrose ที่ต้องเติม</span>
+    <span><i class="dot base"></i> สารน้ำเดิมที่เหลือไว้ในถุง</span>
+  </div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab active" id="tab500" onclick="showVol(500)" role="tab" aria-selected="true">ถุง 500 mL</button>
+    <button class="tab" id="tab1000" onclick="showVol(1000)" role="tab" aria-selected="false">ถุง 1000 mL</button>
+  </div>
+
+  <div class="card">
+    <div class="table-scroll">
+      <table id="mainTable" aria-label="ตารางปริมาตรการผสม">
+        <thead>
+          <tr>
+            <th>% ที่ต้องการ</th>
+            <th>เริ่มจาก 0% Dextrose<small>SWI · NSS · N/2 · 3% NaCl</small></th>
+            <th>เริ่มจาก 5% Dextrose<small>D5W · D5S · D5S/2 · D5S/3</small></th>
+            <th>เริ่มจาก 10% Dextrose<small>D10W · D10S · D10S/2</small></th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="howto">
+    <h2>วิธีใช้ตาราง (เตรียมจากถุงสำเร็จรูป)</h2>
+    <ol class="steps">
+      <li>เลือกขนาดถุง (500 หรือ 1000 mL) และคอลัมน์ตาม % Dextrose เดิมของสารน้ำในถุง</li>
+      <li>อ่านค่าในแถวของ % ที่ต้องการ → <b>ดูดสารน้ำเดิมทิ้ง</b> เท่ากับปริมาตรของ 50% Dextrose (ตัวเลขสีน้ำตาล)</li>
+      <li><b>เติม 50% Dextrose</b> ปริมาตรเท่ากันกลับเข้าไปแทน ผสมให้เข้ากัน จะได้ความเข้มข้นตามต้องการ</li>
+    </ol>
+    <div class="example">
+      <b>ตัวอย่าง:</b> ต้องการ 12.5% D/S/2 ปริมาตร 1000 mL จากถุง 10% DS/2 1000 mL<br>
+      ① ดูดสารละลายในถุงทิ้ง <mark class="d50">62.5 mL</mark> (เหลือ <mark class="base">937.5 mL</mark>)
+      ② เติม 50% Dextrose <mark class="d50">62.5 mL</mark> เข้าไปแทน → ได้ 12.5% DS/2 1000 mL
+    </div>
+  </div>
+
+  <div class="calc">
+    <h2>เครื่องคำนวณด่วน</h2>
+    <p class="note">สำหรับความเข้มข้นหรือปริมาตรอื่นที่ไม่มีในตาราง</p>
+    <div class="calc-grid">
+      <div class="field">
+        <label for="cBase">% Dextrose เดิมในถุง</label>
+        <select id="cBase">
+          <option value="0">0% (SWI / NaCl)</option>
+          <option value="5">5% (D5W / D5S …)</option>
+          <option value="10">10% (D10W / D10S …)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="cTarget">% ที่ต้องการ</label>
+        <input id="cTarget" type="number" step="0.5" min="0" max="50" value="12.5">
+      </div>
+      <div class="field">
+        <label for="cVol">ปริมาตรรวม (mL)</label>
+        <input id="cVol" type="number" step="50" min="50" value="1000">
+      </div>
+    </div>
+    <div class="result" id="cResult"></div>
+  </div>
+
+  <footer>เรียบเรียงใหม่จากเอกสาร Drug News MSMC · ควรตรวจสอบการคำนวณซ้ำก่อนเตรียมจริงตามมาตรฐานหน่วยงาน</footer>
+</div>
+
+<script>
+const targets=[7.5,10,12.5,15,17.5,20,25];
+const bases=[0,5,10];
+let currentVol=500;
+
+function calc(base,target,vol){
+  if(target<=base||target>50) return null;
+  const v50=(target-base)/(50-base)*vol;
+  return {v50:round1(v50),vb:round1(vol-v50)};
+}
+function round1(x){
+  const r=Math.round(x*100)/100;
+  return (r%1===0)?r.toFixed(0):(Math.round(r*10)/10===r?r.toFixed(1):r.toFixed(2));
+}
+function cell(base,target,vol){
+  const m=calc(base,target,vol);
+  if(!m) return '<td class="na">เตรียมไม่ได้<br>(% เดิมสูงกว่า)</td>';
+  const p50=(parseFloat(m.v50)/vol*100).toFixed(1);
+  return `<td><div class="mix">
+    <div class="nums"><span class="v50">${m.v50}</span><span style="color:#9FB3B0">+</span><span class="vb">${m.vb}</span></div>
+    <div class="bar"><i class="f50" style="width:${p50}%"></i><i class="fb" style="width:${100-p50}%"></i></div>
+  </div></td>`;
+}
+function render(vol){
+  const tb=document.getElementById('tbody');
+  tb.innerHTML=targets.map(t=>
+    `<tr><th>${t}%</th>${bases.map(b=>cell(b,t,vol)).join('')}</tr>`
+  ).join('');
+}
+function showVol(v){
+  currentVol=v;
+  render(v);
+  document.getElementById('tab500').classList.toggle('active',v===500);
+  document.getElementById('tab1000').classList.toggle('active',v===1000);
+  document.getElementById('tab500').setAttribute('aria-selected',v===500);
+  document.getElementById('tab1000').setAttribute('aria-selected',v===1000);
+}
+function runCalc(){
+  const base=parseFloat(document.getElementById('cBase').value);
+  const target=parseFloat(document.getElementById('cTarget').value);
+  const vol=parseFloat(document.getElementById('cVol').value);
+  const out=document.getElementById('cResult');
+  if(!target||!vol){out.innerHTML='<span class="warn">กรอก % ที่ต้องการและปริมาตรให้ครบ</span>';return;}
+  const m=calc(base,target,vol);
+  if(!m){out.innerHTML='<span class="warn">เตรียมไม่ได้ — % ที่ต้องการต้องมากกว่า % เดิม และไม่เกิน 50%</span>';return;}
+  out.innerHTML=`ดูดสารน้ำเดิมทิ้ง <b>${m.v50} mL</b> แล้วเติม 50% Dextrose <b>${m.v50} mL</b><br>
+  <span style="opacity:.85;font-size:13px">(= สารน้ำเดิม ${m.vb} mL + 50% Dextrose ${m.v50} mL → ${target}% ${vol} mL)</span>`;
+}
+['cBase','cTarget','cVol'].forEach(id=>document.getElementById(id).addEventListener('input',runCalc));
+render(500);runCalc();
+</script>
+</body>
+</html>
